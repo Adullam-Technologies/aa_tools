@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>aa_tools - Function Reference for Kid Coders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf6ec; --card:#ffffff; --ink:#2b2b3a; --muted:#6b6b80;
+  --brand:#ff7a59; --brand2:#ffb347; --accent:#5b8def; --line:#ffe2c2;
+  --shadow:0 10px 30px rgba(255,122,89,.12);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:"Nunito",ui-rounded,"Segoe UI",system-ui,-apple-system,sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.55;
+}
+header.hero{
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#fff; padding:48px 20px 60px; text-align:center;
+  border-bottom-left-radius:36px; border-bottom-right-radius:36px;
+}
+header.hero h1{font-size:clamp(28px,5vw,46px); margin:0 0 8px; letter-spacing:-.5px}
+header.hero p{font-size:clamp(15px,2.4vw,19px); margin:0 auto; max-width:680px; opacity:.95}
+.wrap{max-width:1080px; margin:0 auto; padding:0 18px 80px}
+.controls{position:sticky; top:0; z-index:5; background:var(--bg);
+  padding:18px 0 10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+#search{flex:1 1 240px; min-width:200px; padding:12px 16px; border:2px solid var(--line);
+  border-radius:999px; font-size:16px; outline:none; background:#fff}
+#search:focus{border-color:var(--brand)}
+.chips{display:flex; gap:8px; flex-wrap:wrap}
+.chip{border:2px solid var(--line); background:#fff; color:var(--muted);
+  padding:7px 14px; border-radius:999px; cursor:pointer; font-weight:700; font-size:14px}
+.chip.active{background:var(--brand); color:#fff; border-color:var(--brand)}
+section.cat{margin-top:34px}
+section.cat h2{font-size:24px; display:flex; align-items:center; gap:10px; margin:0 0 14px}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:20px;
+  padding:18px 18px 16px; box-shadow:var(--shadow); display:flex; flex-direction:column}
+.card h3{margin:0 0 6px; font-size:18px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.card .desc{color:var(--muted); font-size:14.5px; margin:0 0 12px; flex:1}
+pre{background:#2b2b3a; color:#f4f4f8; padding:12px 14px; border-radius:12px;
+  overflow:auto; font-size:12.5px; margin:0 0 10px; position:relative}
+.copy{position:absolute; top:8px; right:8px; border:none; background:var(--brand);
+  color:#fff; border-radius:8px; padding:4px 10px; font-size:12px; cursor:pointer; font-weight:700}
+.badge{display:inline-block; font-size:11px; font-weight:800; letter-spacing:.3px;
+  padding:3px 9px; border-radius:999px; text-transform:uppercase}
+.badge.key{background:#ffe1e1; color:#c0341d}
+.badge.free{background:#e3f6e8; color:#1f7a3d}
+footer{text-align:center; color:var(--muted); font-size:14px; padding:30px 18px 60px}
+a{color:var(--accent)}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>🛠️ aa_tools Reference</h1>
+  <p>Super-power your agent! Every function below works inside Pyodide (the Python that runs in your browser).
+  You bring the API keys - we never store them.</p>
+</header>
+<div class="wrap">
+  <div class="controls">
+    <input id="search" type="text" placeholder="🔎 Search functions (try 'email', 'cat', 'weather')...">
+    <div class="chips">
+      <span class="chip active" data-cat="All">All</span>
+      <span class="chip" data-cat="Web & Search">🌐 Web &amp; Search</span><span class="chip" data-cat="Email">✉️ Email</span><span class="chip" data-cat="AI & Any API">🤖 AI &amp; Any API</span><span class="chip" data-cat="Weather">🌤️ Weather</span><span class="chip" data-cat="Translate">🌍 Translate</span><span class="chip" data-cat="News">📰 News</span><span class="chip" data-cat="Space">🚀 Space</span><span class="chip" data-cat="GitHub">🐙 GitHub</span><span class="chip" data-cat="Fun & Games">🎉 Fun &amp; Games</span><span class="chip" data-cat="Knowledge">📚 Knowledge</span><span class="chip" data-cat="Images">🖼️ Images</span><span class="chip" data-cat="Text Tools">🧰 Text Tools</span>
+    </div>
+  </div>
+<section class="cat" id="cat-Web &amp; Search"><h2>🌐 Web &amp; Search</h2><div class="grid"><div class="card" data-name="search_web" data-desc="Search the internet with Brave and get back a tidy list of results (title, link, snippet)." data-cat="Web &amp; Search"><h3>search_web()</h3><div class="desc">Search the internet with Brave and get back a tidy list of results (title, link, snippet).</div><pre><button class="copy" data-code="results = aa.search_web(&quot;best robots for kids&quot;, api_key=&quot;YOUR_BRAVE_KEY&quot;)
+for r in results:
+    print(r[&quot;title&quot;], &quot;-&gt;&quot;, r[&quot;url&quot;])">Copy</button>results = aa.search_web(&quot;best robots for kids&quot;, api_key=&quot;YOUR_BRAVE_KEY&quot;)
+for r in results:
+    print(r[&quot;title&quot;], &quot;-&gt;&quot;, r[&quot;url&quot;])</pre><span class="badge key">needs key</span></div><div class="card" data-name="search_images" data-desc="Search for pictures on the web using Brave Search." data-cat="Web &amp; Search"><h3>search_images()</h3><div class="desc">Search for pictures on the web using Brave Search.</div><pre><button class="copy" data-code="pics = aa.search_images(&quot;puppies&quot;, api_key=&quot;YOUR_BRAVE_KEY&quot;)
+print(pics[0][&quot;url&quot;])">Copy</button>pics = aa.search_images(&quot;puppies&quot;, api_key=&quot;YOUR_BRAVE_KEY&quot;)
+print(pics[0][&quot;url&quot;])</pre><span class="badge key">needs key</span></div><div class="card" data-name="fetch_page" data-desc="Download any web page and turn it into clean text (Markdown). Great for reading articles." data-cat="Web &amp; Search"><h3>fetch_page()</h3><div class="desc">Download any web page and turn it into clean text (Markdown). Great for reading articles.</div><pre><button class="copy" data-code="text = aa.fetch_page(&quot;https://en.wikipedia.org/wiki/Penguin&quot;)
+print(text[:300])">Copy</button>text = aa.fetch_page(&quot;https://en.wikipedia.org/wiki/Penguin&quot;)
+print(text[:300])</pre><span class="badge free">free</span></div></div></section><section class="cat" id="cat-Email"><h2>✉️ Email</h2><div class="grid"><div class="card" data-name="send_email" data-desc="Send a plain-text email through almost any email provider's SMTP server." data-cat="Email"><h3>send_email()</h3><div class="desc">Send a plain-text email through almost any email provider's SMTP server.</div><pre><button class="copy" data-code="aa.send_email(
+    to=&quot;friend@example.com&quot;,
+    subject=&quot;Hello from my agent!&quot;,
+    body=&quot;My robot wrote this.&quot;,
+    smtp_host=&quot;smtp.gmail.com&quot;,
+    username=&quot;you@gmail.com&quot;,
+    password=&quot;app-password&quot;,
+)">Copy</button>aa.send_email(
+    to=&quot;friend@example.com&quot;,
+    subject=&quot;Hello from my agent!&quot;,
+    body=&quot;My robot wrote this.&quot;,
+    smtp_host=&quot;smtp.gmail.com&quot;,
+    username=&quot;you@gmail.com&quot;,
+    password=&quot;app-password&quot;,
+)</pre><span class="badge key">needs key</span></div><div class="card" data-name="send_email_gmail" data-desc="Send an email using a Gmail account (use a 16-character app password)." data-cat="Email"><h3>send_email_gmail()</h3><div class="desc">Send an email using a Gmail account (use a 16-character app password).</div><pre><button class="copy" data-code="aa.send_email_gmail(
+    to=&quot;friend@example.com&quot;,
+    subject=&quot;hi!&quot;,
+    body=&quot;sent from aa_tools&quot;,
+    gmail=&quot;you@gmail.com&quot;,
+    app_password=&quot;abcd efgh ijkl mnop&quot;,
+)">Copy</button>aa.send_email_gmail(
+    to=&quot;friend@example.com&quot;,
+    subject=&quot;hi!&quot;,
+    body=&quot;sent from aa_tools&quot;,
+    gmail=&quot;you@gmail.com&quot;,
+    app_password=&quot;abcd efgh ijkl mnop&quot;,
+)</pre><span class="badge key">needs key</span></div></div></section><section class="cat" id="cat-AI &amp; Any API"><h2>🤖 AI &amp; Any API</h2><div class="grid"><div class="card" data-name="ask_ai" data-desc="Chat with an OpenAI-compatible AI model (OpenAI, Groq, Together, and more)." data-cat="AI &amp; Any API"><h3>ask_ai()</h3><div class="desc">Chat with an OpenAI-compatible AI model (OpenAI, Groq, Together, and more).</div><pre><button class="copy" data-code="reply = aa.ask_ai(&quot;Tell me a fun fact about space&quot;, api_key=&quot;YOUR_OPENAI_KEY&quot;)
+print(reply)">Copy</button>reply = aa.ask_ai(&quot;Tell me a fun fact about space&quot;, api_key=&quot;YOUR_OPENAI_KEY&quot;)
+print(reply)</pre><span class="badge key">needs key</span></div><div class="card" data-name="call_api" data-desc="Call almost ANY REST API in one line. You just give it the URL and (if needed) a key." data-cat="AI &amp; Any API"><h3>call_api()</h3><div class="desc">Call almost ANY REST API in one line. You just give it the URL and (if needed) a key.</div><pre><button class="copy" data-code="data = aa.call_api(
+    &quot;https://api.github.com/repos/octocat/Hello-World&quot;,
+    key_header=&quot;Accept&quot;,
+    key_prefix=&quot;application/vnd.github+json&quot;,
+)
+print(data[&quot;stargazers_count&quot;])">Copy</button>data = aa.call_api(
+    &quot;https://api.github.com/repos/octocat/Hello-World&quot;,
+    key_header=&quot;Accept&quot;,
+    key_prefix=&quot;application/vnd.github+json&quot;,
+)
+print(data[&quot;stargazers_count&quot;])</pre><span class="badge key">needs key</span></div></div></section><section class="cat" id="cat-Weather"><h2>🌤️ Weather</h2><div class="grid"><div class="card" data-name="get_weather" data-desc="Get the current weather for any city in the world (OpenWeatherMap)." data-cat="Weather"><h3>get_weather()</h3><div class="desc">Get the current weather for any city in the world (OpenWeatherMap).</div><pre><button class="copy" data-code="w = aa.get_weather(&quot;London&quot;, api_key=&quot;YOUR_OWM_KEY&quot;)
+print(f&quot;{w['temp']}°C and {w['description']}&quot;)">Copy</button>w = aa.get_weather(&quot;London&quot;, api_key=&quot;YOUR_OWM_KEY&quot;)
+print(f&quot;{w['temp']}°C and {w['description']}&quot;)</pre><span class="badge key">needs key</span></div><div class="card" data-name="get_forecast" data-desc="Get a short multi-day forecast for a city (OpenWeatherMap)." data-cat="Weather"><h3>get_forecast()</h3><div class="desc">Get a short multi-day forecast for a city (OpenWeatherMap).</div><pre><button class="copy" data-code="fc = aa.get_forecast(&quot;Tokyo&quot;, api_key=&quot;YOUR_OWM_KEY&quot;, days=3)
+print(fc)">Copy</button>fc = aa.get_forecast(&quot;Tokyo&quot;, api_key=&quot;YOUR_OWM_KEY&quot;, days=3)
+print(fc)</pre><span class="badge key">needs key</span></div></div></section><section class="cat" id="cat-Translate"><h2>🌍 Translate</h2><div class="grid"><div class="card" data-name="translate_text" data-desc="Translate text into another language. No key needed for small amounts (MyMemory)." data-cat="Translate"><h3>translate_text()</h3><div class="desc">Translate text into another language. No key needed for small amounts (MyMemory).</div><pre><button class="copy" data-code="print(aa.translate_text(&quot;Hello, world!&quot;, to_lang=&quot;fr&quot;))">Copy</button>print(aa.translate_text(&quot;Hello, world!&quot;, to_lang=&quot;fr&quot;))</pre><span class="badge key">needs key</span></div></div></section><section class="cat" id="cat-News"><h2>📰 News</h2><div class="grid"><div class="card" data-name="get_news" data-desc="Search recent news articles about any topic (NewsAPI)." data-cat="News"><h3>get_news()</h3><div class="desc">Search recent news articles about any topic (NewsAPI).</div><pre><button class="copy" data-code="for a in aa.get_news(&quot;climate&quot;, api_key=&quot;YOUR_NEWSAPI_KEY&quot;):
+    print(a[&quot;title&quot;])">Copy</button>for a in aa.get_news(&quot;climate&quot;, api_key=&quot;YOUR_NEWSAPI_KEY&quot;):
+    print(a[&quot;title&quot;])</pre><span class="badge key">needs key</span></div><div class="card" data-name="top_headlines" data-desc="Get today's top headlines for a country (NewsAPI)." data-cat="News"><h3>top_headlines()</h3><div class="desc">Get today's top headlines for a country (NewsAPI).</div><pre><button class="copy" data-code="for h in aa.top_headlines(api_key=&quot;YOUR_NEWSAPI_KEY&quot;, country=&quot;us&quot;):
+    print(h[&quot;title&quot;])">Copy</button>for h in aa.top_headlines(api_key=&quot;YOUR_NEWSAPI_KEY&quot;, country=&quot;us&quot;):
+    print(h[&quot;title&quot;])</pre><span class="badge key">needs key</span></div></div></section><section class="cat" id="cat-Space"><h2>🚀 Space</h2><div class="grid"><div class="card" data-name="space_image" data-desc="Get NASA's Astronomy Picture of the Day (no key needed for light use)." data-cat="Space"><h3>space_image()</h3><div class="desc">Get NASA's Astronomy Picture of the Day (no key needed for light use).</div><pre><button class="copy" data-code="pic = aa.space_image()
+print(pic[&quot;title&quot;], pic[&quot;url&quot;])">Copy</button>pic = aa.space_image()
+print(pic[&quot;title&quot;], pic[&quot;url&quot;])</pre><span class="badge key">needs key</span></div><div class="card" data-name="near_earth_objects" data-desc="List asteroids flying near Earth in a date range (NASA NeoWs)." data-cat="Space"><h3>near_earth_objects()</h3><div class="desc">List asteroids flying near Earth in a date range (NASA NeoWs).</div><pre><button class="copy" data-code="aa.near_earth_objects(api_key=&quot;DEMO_KEY&quot;, start_date=&quot;2024-01-01&quot;, end_date=&quot;2024-01-07&quot;)">Copy</button>aa.near_earth_objects(api_key=&quot;DEMO_KEY&quot;, start_date=&quot;2024-01-01&quot;, end_date=&quot;2024-01-07&quot;)</pre><span class="badge key">needs key</span></div><div class="card" data-name="mars_photo" data-desc="Fetch a real photo taken by a rover on Mars (NASA)." data-cat="Space"><h3>mars_photo()</h3><div class="desc">Fetch a real photo taken by a rover on Mars (NASA).</div><pre><button class="copy" data-code="print(aa.mars_photo(sol=1000, api_key=&quot;DEMO_KEY&quot;))">Copy</button>print(aa.mars_photo(sol=1000, api_key=&quot;DEMO_KEY&quot;))</pre><span class="badge key">needs key</span></div></div></section><section class="cat" id="cat-GitHub"><h2>🐙 GitHub</h2><div class="grid"><div class="card" data-name="github_repo" data-desc="Get info about a GitHub repository (stars, language, open issues)." data-cat="GitHub"><h3>github_repo()</h3><div class="desc">Get info about a GitHub repository (stars, language, open issues).</div><pre><button class="copy" data-code="info = aa.github_repo(&quot;pallets/flask&quot;)
+print(info[&quot;stars&quot;], &quot;stars&quot;)">Copy</button>info = aa.github_repo(&quot;pallets/flask&quot;)
+print(info[&quot;stars&quot;], &quot;stars&quot;)</pre><span class="badge key">needs key</span></div><div class="card" data-name="github_user" data-desc="Get public profile info for a GitHub user." data-cat="GitHub"><h3>github_user()</h3><div class="desc">Get public profile info for a GitHub user.</div><pre><button class="copy" data-code="print(aa.github_user(&quot;octocat&quot;))">Copy</button>print(aa.github_user(&quot;octocat&quot;))</pre><span class="badge key">needs key</span></div><div class="card" data-name="github_search_repos" data-desc="Search GitHub repositories by keyword." data-cat="GitHub"><h3>github_search_repos()</h3><div class="desc">Search GitHub repositories by keyword.</div><pre><button class="copy" data-code="for r in aa.github_search_repos(&quot;game engine&quot;):
+    print(r[&quot;name&quot;], r[&quot;stars&quot;])">Copy</button>for r in aa.github_search_repos(&quot;game engine&quot;):
+    print(r[&quot;name&quot;], r[&quot;stars&quot;])</pre><span class="badge key">needs key</span></div></div></section><section class="cat" id="cat-Fun &amp; Games"><h2>🎉 Fun &amp; Games</h2><div class="grid"><div class="card" data-name="get_joke" data-desc="Get a random, clean joke with a setup and punchline." data-cat="Fun &amp; Games"><h3>get_joke()</h3><div class="desc">Get a random, clean joke with a setup and punchline.</div><pre><button class="copy" data-code="j = aa.get_joke()
+print(j[&quot;setup&quot;]); print(j[&quot;punchline&quot;])">Copy</button>j = aa.get_joke()
+print(j[&quot;setup&quot;]); print(j[&quot;punchline&quot;])</pre><span class="badge free">free</span></div><div class="card" data-name="get_advice" data-desc="Get a random piece of (silly but wise) advice." data-cat="Fun &amp; Games"><h3>get_advice()</h3><div class="desc">Get a random piece of (silly but wise) advice.</div><pre><button class="copy" data-code="print(aa.get_advice())">Copy</button>print(aa.get_advice())</pre><span class="badge free">free</span></div><div class="card" data-name="get_cat_fact" data-desc="Get a random fact about cats." data-cat="Fun &amp; Games"><h3>get_cat_fact()</h3><div class="desc">Get a random fact about cats.</div><pre><button class="copy" data-code="print(aa.get_cat_fact())">Copy</button>print(aa.get_cat_fact())</pre><span class="badge free">free</span></div><div class="card" data-name="get_cat_image" data-desc="Get a link to a random photo of a cat." data-cat="Fun &amp; Games"><h3>get_cat_image()</h3><div class="desc">Get a link to a random photo of a cat.</div><pre><button class="copy" data-code="print(aa.get_cat_image())">Copy</button>print(aa.get_cat_image())</pre><span class="badge free">free</span></div><div class="card" data-name="get_dog_image" data-desc="Get a random photo of a good dog." data-cat="Fun &amp; Games"><h3>get_dog_image()</h3><div class="desc">Get a random photo of a good dog.</div><pre><button class="copy" data-code="print(aa.get_dog_image())">Copy</button>print(aa.get_dog_image())</pre><span class="badge free">free</span></div><div class="card" data-name="get_quote" data-desc="Get an inspirational quote and who said it." data-cat="Fun &amp; Games"><h3>get_quote()</h3><div class="desc">Get an inspirational quote and who said it.</div><pre><button class="copy" data-code="q = aa.get_quote()
+print(f'&quot;{q[&quot;text&quot;]}&quot; - {q[&quot;author&quot;]}')">Copy</button>q = aa.get_quote()
+print(f'&quot;{q[&quot;text&quot;]}&quot; - {q[&quot;author&quot;]}')</pre><span class="badge free">free</span></div><div class="card" data-name="roll_dice" data-desc="Roll a die with any number of sides (default 6)." data-cat="Fun &amp; Games"><h3>roll_dice()</h3><div class="desc">Roll a die with any number of sides (default 6).</div><pre><button class="copy" data-code="print(aa.roll_dice(20))">Copy</button>print(aa.roll_dice(20))</pre><span class="badge free">free</span></div><div class="card" data-name="flip_coin" data-desc="Flip a coin: returns 'heads' or 'tails'." data-cat="Fun &amp; Games"><h3>flip_coin()</h3><div class="desc">Flip a coin: returns 'heads' or 'tails'.</div><pre><button class="copy" data-code="print(aa.flip_coin())">Copy</button>print(aa.flip_coin())</pre><span class="badge free">free</span></div><div class="card" data-name="random_number" data-desc="Pick a random whole number between two values." data-cat="Fun &amp; Games"><h3>random_number()</h3><div class="desc">Pick a random whole number between two values.</div><pre><button class="copy" data-code="print(aa.random_number(1, 100))">Copy</button>print(aa.random_number(1, 100))</pre><span class="badge free">free</span></div><div class="card" data-name="pick_one" data-desc="Randomly pick one item from the ones you list." data-cat="Fun &amp; Games"><h3>pick_one()</h3><div class="desc">Randomly pick one item from the ones you list.</div><pre><button class="copy" data-code="print(aa.pick_one(&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;))">Copy</button>print(aa.pick_one(&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;))</pre><span class="badge free">free</span></div><div class="card" data-name="get_pokemon" data-desc="Look up a Pokémon by name: its type, height, and a picture." data-cat="Fun &amp; Games"><h3>get_pokemon()</h3><div class="desc">Look up a Pokémon by name: its type, height, and a picture.</div><pre><button class="copy" data-code="p = aa.get_pokemon(&quot;charizard&quot;)
+print(p[&quot;name&quot;], p[&quot;types&quot;])">Copy</button>p = aa.get_pokemon(&quot;charizard&quot;)
+print(p[&quot;name&quot;], p[&quot;types&quot;])</pre><span class="badge free">free</span></div></div></section><section class="cat" id="cat-Knowledge"><h2>📚 Knowledge</h2><div class="grid"><div class="card" data-name="wikipedia_summary" data-desc="Get a short, friendly summary of almost any Wikipedia topic." data-cat="Knowledge"><h3>wikipedia_summary()</h3><div class="desc">Get a short, friendly summary of almost any Wikipedia topic.</div><pre><button class="copy" data-code="info = aa.wikipedia_summary(&quot;Aurora&quot;)
+print(info[&quot;summary&quot;])">Copy</button>info = aa.wikipedia_summary(&quot;Aurora&quot;)
+print(info[&quot;summary&quot;])</pre><span class="badge free">free</span></div><div class="card" data-name="define_word" data-desc="Get the dictionary definition and an example sentence for a word." data-cat="Knowledge"><h3>define_word()</h3><div class="desc">Get the dictionary definition and an example sentence for a word.</div><pre><button class="copy" data-code="d = aa.define_word(&quot;serendipity&quot;)
+print(d[&quot;definitions&quot;][0])">Copy</button>d = aa.define_word(&quot;serendipity&quot;)
+print(d[&quot;definitions&quot;][0])</pre><span class="badge free">free</span></div><div class="card" data-name="number_fact" data-desc="Get a fun, fact-packed description of any number (works offline!)." data-cat="Knowledge"><h3>number_fact()</h3><div class="desc">Get a fun, fact-packed description of any number (works offline!).</div><pre><button class="copy" data-code="print(aa.number_fact(7))">Copy</button>print(aa.number_fact(7))</pre><span class="badge free">free</span></div><div class="card" data-name="country_info" data-desc="Get a friendly snapshot of a country using Wikipedia." data-cat="Knowledge"><h3>country_info()</h3><div class="desc">Get a friendly snapshot of a country using Wikipedia.</div><pre><button class="copy" data-code="c = aa.country_info(&quot;Japan&quot;)
+print(c[&quot;summary&quot;][:80])">Copy</button>c = aa.country_info(&quot;Japan&quot;)
+print(c[&quot;summary&quot;][:80])</pre><span class="badge free">free</span></div><div class="card" data-name="convert_money" data-desc="Convert money between currencies using live rates (no key needed)." data-cat="Knowledge"><h3>convert_money()</h3><div class="desc">Convert money between currencies using live rates (no key needed).</div><pre><button class="copy" data-code="print(aa.convert_money(10, &quot;USD&quot;, &quot;EUR&quot;))">Copy</button>print(aa.convert_money(10, &quot;USD&quot;, &quot;EUR&quot;))</pre><span class="badge free">free</span></div><div class="card" data-name="shorten_url" data-desc="Make a long URL short using the free is.gd service." data-cat="Knowledge"><h3>shorten_url()</h3><div class="desc">Make a long URL short using the free is.gd service.</div><pre><button class="copy" data-code="print(aa.shorten_url(&quot;https://example.com/very/long/path&quot;))">Copy</button>print(aa.shorten_url(&quot;https://example.com/very/long/path&quot;))</pre><span class="badge free">free</span></div></div></section><section class="cat" id="cat-Images"><h2>🖼️ Images</h2><div class="grid"><div class="card" data-name="generate_image" data-desc="Create an image from a text description using OpenAI DALL·E." data-cat="Images"><h3>generate_image()</h3><div class="desc">Create an image from a text description using OpenAI DALL·E.</div><pre><button class="copy" data-code="url = aa.generate_image(&quot;a robot riding a unicorn on the moon&quot;, api_key=&quot;YOUR_OPENAI_KEY&quot;)
+print(url)">Copy</button>url = aa.generate_image(&quot;a robot riding a unicorn on the moon&quot;, api_key=&quot;YOUR_OPENAI_KEY&quot;)
+print(url)</pre><span class="badge key">needs key</span></div><div class="card" data-name="get_photo" data-desc="Search free stock photos on Pexels and get image links." data-cat="Images"><h3>get_photo()</h3><div class="desc">Search free stock photos on Pexels and get image links.</div><pre><button class="copy" data-code="for url in aa.get_photo(&quot;mountains&quot;, api_key=&quot;YOUR_PEXELS_KEY&quot;):
+    print(url)">Copy</button>for url in aa.get_photo(&quot;mountains&quot;, api_key=&quot;YOUR_PEXELS_KEY&quot;):
+    print(url)</pre><span class="badge key">needs key</span></div><div class="card" data-name="random_image" data-desc="Get a random photo of any size (no key needed)." data-cat="Images"><h3>random_image()</h3><div class="desc">Get a random photo of any size (no key needed).</div><pre><button class="copy" data-code="print(aa.random_image(width=600, height=400, seed=&quot;sunset&quot;))">Copy</button>print(aa.random_image(width=600, height=400, seed=&quot;sunset&quot;))</pre><span class="badge free">free</span></div></div></section><section class="cat" id="cat-Text Tools"><h2>🧰 Text Tools</h2><div class="grid"><div class="card" data-name="hash_text" data-desc="Turn text into a fixed 'fingerprint' hash (sha256 by default)." data-cat="Text Tools"><h3>hash_text()</h3><div class="desc">Turn text into a fixed 'fingerprint' hash (sha256 by default).</div><pre><button class="copy" data-code="print(aa.hash_text(&quot;hello&quot;))">Copy</button>print(aa.hash_text(&quot;hello&quot;))</pre><span class="badge free">free</span></div><div class="card" data-name="base64_encode" data-desc="Encode text into Base64 (a common way to pack data)." data-cat="Text Tools"><h3>base64_encode()</h3><div class="desc">Encode text into Base64 (a common way to pack data).</div><pre><button class="copy" data-code="print(aa.base64_encode(&quot;hi&quot;))">Copy</button>print(aa.base64_encode(&quot;hi&quot;))</pre><span class="badge free">free</span></div><div class="card" data-name="base64_decode" data-desc="Decode Base64 text back to normal text." data-cat="Text Tools"><h3>base64_decode()</h3><div class="desc">Decode Base64 text back to normal text.</div><pre><button class="copy" data-code="print(aa.base64_decode(&quot;aGk=&quot;))">Copy</button>print(aa.base64_decode(&quot;aGk=&quot;))</pre><span class="badge free">free</span></div><div class="card" data-name="make_qr" data-desc="Make a QR code image for text or a link (returns a URL)." data-cat="Text Tools"><h3>make_qr()</h3><div class="desc">Make a QR code image for text or a link (returns a URL).</div><pre><button class="copy" data-code="print(aa.make_qr(&quot;https://example.com&quot;))">Copy</button>print(aa.make_qr(&quot;https://example.com&quot;))</pre><span class="badge free">free</span></div><div class="card" data-name="convert_units" data-desc="Convert between length or weight units." data-cat="Text Tools"><h3>convert_units()</h3><div class="desc">Convert between length or weight units.</div><pre><button class="copy" data-code="print(aa.convert_units(1, &quot;mi&quot;, &quot;km&quot;))  # ~1.609
+print(aa.convert_units(1, &quot;kg&quot;, &quot;lb&quot;))  # ~2.205">Copy</button>print(aa.convert_units(1, &quot;mi&quot;, &quot;km&quot;))  # ~1.609
+print(aa.convert_units(1, &quot;kg&quot;, &quot;lb&quot;))  # ~2.205</pre><span class="badge free">free</span></div><div class="card" data-name="count_words" data-desc="Count how many words are in some text." data-cat="Text Tools"><h3>count_words()</h3><div class="desc">Count how many words are in some text.</div><pre><button class="copy" data-code="print(aa.count_words(&quot;one two three&quot;))">Copy</button>print(aa.count_words(&quot;one two three&quot;))</pre><span class="badge free">free</span></div><div class="card" data-name="reverse_text" data-desc="Reverse a string backwards." data-cat="Text Tools"><h3>reverse_text()</h3><div class="desc">Reverse a string backwards.</div><pre><button class="copy" data-code="print(aa.reverse_text(&quot;abc&quot;))  # cba">Copy</button>print(aa.reverse_text(&quot;abc&quot;))  # cba</pre><span class="badge free">free</span></div><div class="card" data-name="is_palindrome" data-desc="Is the text the same forwards and backwards?" data-cat="Text Tools"><h3>is_palindrome()</h3><div class="desc">Is the text the same forwards and backwards?</div><pre><button class="copy" data-code="print(aa.is_palindrome(&quot;Racecar&quot;))  # True">Copy</button>print(aa.is_palindrome(&quot;Racecar&quot;))  # True</pre><span class="badge free">free</span></div></div></section>
+</div>
+<footer>
+  Made with 💛 for kid coders · <strong>aa_tools</strong> v0.1.0 · 46 functions<br>
+  Tip: install in Pyodide with <code>await micropip.install('aa_tools-0.1.0-py3-none-any.whl')</code> then <code>import aa_tools as aa</code>.
+</footer>
+<script>
+const cards=[...document.querySelectorAll('.card')];
+const chips=document.querySelectorAll('.chip');
+const search=document.getElementById('search');
+function apply(){
+  const q=search.value.trim().toLowerCase();
+  const cat=document.querySelector('.chip.active').dataset.cat;
+  cards.forEach(c=>{
+    const hay=(c.dataset.name+' '+c.dataset.desc+' '+c.dataset.cat).toLowerCase();
+    const okCat = cat==='All' || c.dataset.cat===cat;
+    const okQ = !q || hay.includes(q);
+    c.classList.toggle('hidden', !(okCat&&okQ));
+  });
+  document.querySelectorAll('section.cat').forEach(s=>{
+    const vis=[...s.querySelectorAll('.card')].some(c=>!c.classList.contains('hidden'));
+    s.classList.toggle('hidden',!vis);
+  });
+}
+search.addEventListener('input',apply);
+chips.forEach(ch=>ch.addEventListener('click',()=>{
+  chips.forEach(x=>x.classList.remove('active'));
+  ch.classList.add('active'); apply();
+}));
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  navigator.clipboard.writeText(b.dataset.code);
+  const t=b.textContent; b.textContent='Copied!';
+  setTimeout(()=>b.textContent=t,1200);
+}));
+apply();
+</script>
+</body>
+</html>
