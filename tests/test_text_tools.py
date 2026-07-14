@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import base64 as b64
 import hashlib
-import urllib.parse
 
 import pytest
 
@@ -18,6 +17,7 @@ from aa_agent_tools.text_tools import (
     make_qr,
     reverse_text,
 )
+from aa_agent_tools._util import quote
 
 
 class TestHashText:
@@ -54,7 +54,7 @@ class TestMakeQr:
     def test_default_size(self):
         url = make_qr("test")
         assert "size=200x200" in url
-        assert f"data={urllib.parse.quote('test')}" in url
+        assert f"data={quote('test')}" in url
 
     def test_custom_size(self):
         url = make_qr("abc", size=300)
@@ -62,7 +62,7 @@ class TestMakeQr:
 
     def test_url_encoded(self):
         url = make_qr("https://example.com?q=1&x=2")
-        assert urllib.parse.quote("https://example.com?q=1&x=2") in url
+        assert quote("https://example.com?q=1&x=2") in url
 
 
 class TestConvertUnits:

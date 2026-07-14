@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import base64
 import hashlib
-import urllib.parse
 
 from ._http import request
+from ._util import quote
 
 
 def hash_text(text: str, *, algorithm: str = "sha256"):
@@ -42,7 +42,7 @@ def make_qr(text: str, *, size: int = 200):
     """
     return (
         "https://api.qrserver.com/v1/create-qr-code/"
-        f"?size={size}x{size}&data={urllib.parse.quote(text)}"
+        f"?size={size}x{size}&data={quote(text)}"
     )
 
 
