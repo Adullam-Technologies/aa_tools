@@ -1,4 +1,4 @@
-"""Live tests for aa_tools.email_tools (Gmail SMTP).
+"""Live tests for aa_agent_tools.email_tools (Gmail SMTP).
 
 These send a **real email** and need Gmail credentials. Run with::
 
@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from aa_tools import email_tools
+from aa_agent_tools import email_tools
 
 
 pytestmark = pytest.mark.live
@@ -21,9 +21,9 @@ class TestSendEmailGmailLive:
             pytest.skip("GMAIL_ADDRESS / GMAIL_APP_PASSWORD / TO not set")
         result = email_tools.send_email_gmail(
             to=email_to,
-            subject="aa_tools live test ✅",
+            subject="aa_agent_tools live test ✅",
             body=(
-                "This is an automated test email from the aa_tools test-suite.\n\n"
+                "This is an automated test email from the aa_agent_tools test-suite.\n\n"
                 "If you received this, the send_email_gmail() function works!"
             ),
             gmail=gmail_address,

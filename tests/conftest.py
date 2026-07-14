@@ -1,4 +1,4 @@
-"""Shared fixtures and helpers for the aa_tools test-suite.
+"""Shared fixtures and helpers for the aa_agent_tools test-suite.
 
 Offline (mocked) tests run by default.  Live tests that hit real APIs are
 opt-in: they only run when the relevant key is present in a ``.env`` file (or

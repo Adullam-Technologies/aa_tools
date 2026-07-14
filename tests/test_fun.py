@@ -1,4 +1,4 @@
-"""Tests for aa_tools.fun."""
+"""Tests for aa_agent_tools.fun."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from aa_tools import fun
+from aa_agent_tools import fun
 
 
 class TestRollDice:

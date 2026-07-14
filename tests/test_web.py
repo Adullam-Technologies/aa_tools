@@ -1,11 +1,11 @@
-"""Tests for aa_tools.web."""
+"""Tests for aa_agent_tools.web."""
 
 from __future__ import annotations
 
 import pytest
 
-from aa_tools import web
-from aa_tools.errors import AAMissingKeyError
+from aa_agent_tools import web
+from aa_agent_tools.errors import AAMissingKeyError
 
 
 class TestSearchWeb:

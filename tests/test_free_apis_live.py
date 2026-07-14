@@ -1,4 +1,4 @@
-"""Live tests for keyless public APIs in aa_tools.
+"""Live tests for keyless public APIs in aa_agent_tools.
 
 These make real network calls but need no API keys, so they can run whenever
 ``--live`` is passed (even without a .env file). Run with::
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from aa_tools import fun, data, space
+from aa_agent_tools import fun, data, space
 
 
 pytestmark = pytest.mark.live

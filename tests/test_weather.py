@@ -1,11 +1,11 @@
-"""Tests for aa_tools.weather."""
+"""Tests for aa_agent_tools.weather."""
 
 from __future__ import annotations
 
 import pytest
 
-from aa_tools import weather
-from aa_tools.errors import AAMissingKeyError
+from aa_agent_tools import weather
+from aa_agent_tools.errors import AAMissingKeyError
 
 
 SAMPLE_OWM_RESPONSE = {

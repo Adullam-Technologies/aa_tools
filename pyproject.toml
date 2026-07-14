@@ -1,7 +1,7 @@
 [project]
-name = "aa-tools"
+name = "aa-agent-tools"
 version = "0.1.0"
-description = "aa_tools - a friendly, Pyodide-ready toolbox of cool functions for kid-built agents (web search, fetch pages, email, AI, weather, and tons of fun stuff)."
+description = "aa_agent_tools - a friendly, Pyodide-ready toolbox of cool functions for kid-built agents (web search, fetch pages, email, AI, weather, and tons of fun stuff)."
 readme = "README.md"
 authors = [
     { name = "obaodelana", email = "obaloluwa.dev@gmail.com" }
@@ -16,8 +16,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 [project.urls]
-Homepage = "https://github.com/obaodelana/aa_tools"
-Documentation = "https://github.com/obaodelana/aa_tools"
+Homepage = "https://github.com/obaodelana/aa_agent_tools"
+Documentation = "https://github.com/obaodelana/aa_agent_tools"
 
 [build-system]
 requires = ["uv_build>=0.10.2,<0.11.0"]

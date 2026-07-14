@@ -1,4 +1,4 @@
-"""Tests for aa_tools.email_tools."""
+"""Tests for aa_agent_tools.email_tools."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from aa_tools import email_tools
-from aa_tools.errors import AAMissingKeyError
+from aa_agent_tools import email_tools
+from aa_agent_tools.errors import AAMissingKeyError
 
 
 class TestSendEmail:
@@ -20,7 +20,7 @@ class TestSendEmail:
         with pytest.raises(AAMissingKeyError):
             email_tools.send_email("a@b.com", "subj", "body", smtp_host="smtp.x.com", username="u", password="")
 
-    @patch("aa_tools.email_tools.smtplib.SMTP")
+    @patch("aa_agent_tools.email_tools.smtplib.SMTP")
     def test_success_with_tls(self, mock_smtp):
         server = MagicMock()
         mock_smtp.return_value.__enter__ = MagicMock(return_value=server)
@@ -37,7 +37,7 @@ class TestSendEmail:
         server.login.assert_called_once_with("me@example.com", "pass")
         server.send_message.assert_called_once()
 
-    @patch("aa_tools.email_tools.smtplib.SMTP")
+    @patch("aa_agent_tools.email_tools.smtplib.SMTP")
     def test_no_tls(self, mock_smtp):
         server = MagicMock()
         mock_smtp.return_value.__enter__ = MagicMock(return_value=server)
@@ -50,7 +50,7 @@ class TestSendEmail:
         )
         server.starttls.assert_not_called()
 
-    @patch("aa_tools.email_tools.smtplib.SMTP")
+    @patch("aa_agent_tools.email_tools.smtplib.SMTP")
     def test_from_addr_defaults_to_username(self, mock_smtp):
         server = MagicMock()
         mock_smtp.return_value.__enter__ = MagicMock(return_value=server)
@@ -63,7 +63,7 @@ class TestSendEmail:
         sent_msg = server.send_message.call_args[0][0]
         assert sent_msg["From"] == "me@x.com"
 
-    @patch("aa_tools.email_tools.smtplib.SMTP")
+    @patch("aa_agent_tools.email_tools.smtplib.SMTP")
     def test_custom_from_addr(self, mock_smtp):
         server = MagicMock()
         mock_smtp.return_value.__enter__ = MagicMock(return_value=server)
@@ -77,7 +77,7 @@ class TestSendEmail:
         sent_msg = server.send_message.call_args[0][0]
         assert sent_msg["From"] == "custom@x.com"
 
-    @patch("aa_tools.email_tools.smtplib.SMTP")
+    @patch("aa_agent_tools.email_tools.smtplib.SMTP")
     def test_email_content_set_correctly(self, mock_smtp):
         server = MagicMock()
         mock_smtp.return_value.__enter__ = MagicMock(return_value=server)
@@ -93,7 +93,7 @@ class TestSendEmail:
 
 
 class TestSendEmailGmail:
-    @patch("aa_tools.email_tools.smtplib.SMTP")
+    @patch("aa_agent_tools.email_tools.smtplib.SMTP")
     def test_delegates_to_send_email(self, mock_smtp):
         server = MagicMock()
         mock_smtp.return_value.__enter__ = MagicMock(return_value=server)
@@ -107,7 +107,7 @@ class TestSendEmailGmail:
         mock_smtp.assert_called_once_with("smtp.gmail.com", 587, timeout=30)
         server.login.assert_called_once_with("me@gmail.com", "abcd efgh ijkl mnop")
 
-    @patch("aa_tools.email_tools.smtplib.SMTP")
+    @patch("aa_agent_tools.email_tools.smtplib.SMTP")
     def test_from_addr_set_to_gmail(self, mock_smtp):
         server = MagicMock()
         mock_smtp.return_value.__enter__ = MagicMock(return_value=server)

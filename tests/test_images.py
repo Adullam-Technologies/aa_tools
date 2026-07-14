@@ -1,11 +1,11 @@
-"""Tests for aa_tools.images."""
+"""Tests for aa_agent_tools.images."""
 
 from __future__ import annotations
 
 import pytest
 
-from aa_tools import images
-from aa_tools.errors import AAMissingKeyError
+from aa_agent_tools import images
+from aa_agent_tools.errors import AAMissingKeyError
 
 
 class TestGetPhoto:

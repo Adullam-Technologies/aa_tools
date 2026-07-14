@@ -1,10 +1,10 @@
-"""Tests for aa_tools.errors."""
+"""Tests for aa_agent_tools.errors."""
 
 from __future__ import annotations
 
 import pytest
 
-from aa_tools.errors import AAError, AARequestError, AAMissingKeyError
+from aa_agent_tools.errors import AAError, AARequestError, AAMissingKeyError
 
 
 class TestAAError:

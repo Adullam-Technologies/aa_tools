@@ -1,4 +1,4 @@
-"""Tests for aa_tools.text_tools."""
+"""Tests for aa_agent_tools.text_tools."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import urllib.parse
 
 import pytest
 
-from aa_tools.text_tools import (
+from aa_agent_tools.text_tools import (
     base64_decode,
     base64_encode,
     convert_units,

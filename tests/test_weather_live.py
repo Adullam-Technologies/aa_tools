@@ -1,4 +1,4 @@
-"""Live tests for aa_tools.weather (OpenWeatherMap).
+"""Live tests for aa_agent_tools.weather (OpenWeatherMap).
 
 These make real network calls and need an OpenWeatherMap API key. Run with::
 
@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from aa_tools import weather
+from aa_agent_tools import weather
 
 
 pytestmark = pytest.mark.live

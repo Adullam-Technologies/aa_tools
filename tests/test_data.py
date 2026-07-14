@@ -1,11 +1,11 @@
-"""Tests for aa_tools.data."""
+"""Tests for aa_agent_tools.data."""
 
 from __future__ import annotations
 
 import pytest
 
-from aa_tools import data
-from aa_tools.data import _is_prime
+from aa_agent_tools import data
+from aa_agent_tools.data import _is_prime
 
 
 class TestIsPrime:

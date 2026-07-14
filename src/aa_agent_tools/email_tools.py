@@ -82,7 +82,7 @@ def send_email_gmail(to: str, subject: str, body: str, *, gmail: str, app_passwo
     >>> aa.send_email_gmail(
     ...     to="friend@example.com",
     ...     subject="hi!",
-    ...     body="sent from aa_tools",
+    ...     body="sent from aa_agent_tools",
     ...     gmail="you@gmail.com",
     ...     app_password="abcd efgh ijkl mnop",
     ... )

@@ -1,8 +1,8 @@
-# 🛠️ aa_tools
+# 🛠️ aa_agent_tools
 
 **A friendly toolbox of cool functions for kid-built agents.**
 
-`aa_tools` gives your Python agents super-powers: search the web, read pages,
+`aa_agent_tools` gives your Python agents super-powers: search the web, read pages,
 send emails, check the weather, grab space pictures from NASA, roll dice, fetch
 cat facts, and a whole lot more — **38 functions**, all listed below with
 copy-paste examples.
@@ -16,7 +16,7 @@ copy-paste examples.
 ## 🎉 Quick start
 
 ```python
-import aa_tools as aa
+import aa_agent_tools as aa
 
 # No key needed — just fun!
 print(aa.get_joke())
@@ -98,7 +98,7 @@ Send an email using a Gmail account (use a 16-character app password).
 aa.send_email_gmail(
     to="friend@example.com",
     subject="hi!",
-    body="sent from aa_tools",
+    body="sent from aa_agent_tools",
     gmail="you@gmail.com",
     app_password="abcd efgh ijkl mnop",
 )

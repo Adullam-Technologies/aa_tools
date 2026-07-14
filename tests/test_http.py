@@ -1,4 +1,4 @@
-"""Tests for aa_tools._http."""
+"""Tests for aa_agent_tools._http."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import urllib.error
 
 import pytest
 
-from aa_tools._http import build_url, request
+from aa_agent_tools._http import build_url, request
 
 
 class TestBuildUrl:
@@ -47,14 +47,14 @@ class TestRequest:
         mock_urlopen.return_value = fake_response({})
         request("https://example.com")
         sent_req = mock_urlopen.call_args[0][0]
-        assert sent_req.headers["User-agent"] == "aa_tools/0.1 (+https://github.com/Adullam-Technologies/aa_tools)"
+        assert sent_req.headers["User-agent"] == "aa_agent_tools/0.1 (+https://github.com/Adullam-Technologies/aa_agent_tools)"
 
     def test_custom_headers_merged(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({})
         request("https://example.com", headers={"X-Token": "abc"})
         sent_req = mock_urlopen.call_args[0][0]
         assert sent_req.headers["X-token"] == "abc"
-        assert sent_req.headers["User-agent"].startswith("aa_tools/")
+        assert sent_req.headers["User-agent"].startswith("aa_agent_tools/")
 
     def test_json_body_sets_content_type(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({})
@@ -68,7 +68,7 @@ class TestRequest:
             "https://example.com", 404, "Not Found", {}, None
         )
         mock_urlopen.side_effect = err
-        from aa_tools.errors import AARequestError
+        from aa_agent_tools.errors import AARequestError
 
         with pytest.raises(AARequestError) as exc_info:
             request("https://example.com")
@@ -76,7 +76,7 @@ class TestRequest:
 
     def test_url_error_raises_aa_error(self, mock_urlopen):
         mock_urlopen.side_effect = urllib.error.URLError("refused")
-        from aa_tools.errors import AAError
+        from aa_agent_tools.errors import AAError
 
         with pytest.raises(AAError, match="Could not reach"):
             request("https://example.com")

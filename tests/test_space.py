@@ -1,10 +1,10 @@
-"""Tests for aa_tools.space."""
+"""Tests for aa_agent_tools.space."""
 
 from __future__ import annotations
 
 import pytest
 
-from aa_tools import space
+from aa_agent_tools import space
 
 
 SAMPLE_APOD = {

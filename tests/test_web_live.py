@@ -1,4 +1,4 @@
-"""Live tests for aa_tools.web (Brave Search + Jina Reader).
+"""Live tests for aa_agent_tools.web (Brave Search + Jina Reader).
 
 These make real network calls and need a Brave API key. Run with::
 
@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from aa_tools import web
+from aa_agent_tools import web
 
 
 pytestmark = pytest.mark.live

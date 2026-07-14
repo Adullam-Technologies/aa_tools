@@ -1,4 +1,4 @@
-"""Internal HTTP helpers for aa_tools.
+"""Internal HTTP helpers for aa_agent_tools.
 
 Everything here uses only the Python standard library so it works inside a
 Pyodide (WebAssembly) environment where third-party wheels like ``requests``
@@ -14,7 +14,7 @@ import urllib.parse
 import urllib.request
 
 DEFAULT_TIMEOUT = 30
-DEFAULT_USER_AGENT = "aa_tools/0.1 (+https://github.com/Adullam-Technologies/aa_tools)"
+DEFAULT_USER_AGENT = "aa_agent_tools/0.1 (+https://github.com/Adullam-Technologies/aa_agent_tools)"
 
 
 def build_url(base: str, params: dict | None = None) -> str:

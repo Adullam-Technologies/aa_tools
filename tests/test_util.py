@@ -1,11 +1,11 @@
-"""Tests for aa_tools._util."""
+"""Tests for aa_agent_tools._util."""
 
 from __future__ import annotations
 
 import pytest
 
-from aa_tools._util import pretty, require_key, truncate
-from aa_tools.errors import AAMissingKeyError
+from aa_agent_tools._util import pretty, require_key, truncate
+from aa_agent_tools.errors import AAMissingKeyError
 
 
 class TestRequireKey:

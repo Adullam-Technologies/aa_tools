@@ -1,10 +1,10 @@
-"""Friendly error types for aa_tools."""
+"""Friendly error types for aa_agent_tools."""
 
 from __future__ import annotations
 
 
 class AAError(Exception):
-    """Base class for every error aa_tools can raise."""
+    """Base class for every error aa_agent_tools can raise."""
 
 
 class AARequestError(AAError):

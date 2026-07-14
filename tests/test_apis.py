@@ -1,4 +1,4 @@
-"""Tests for aa_tools.apis."""
+"""Tests for aa_agent_tools.apis."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import json
 
 import pytest
 
-from aa_tools import apis
-from aa_tools.errors import AAMissingKeyError
+from aa_agent_tools import apis
+from aa_agent_tools.errors import AAMissingKeyError
 
 
 class TestCallApi:

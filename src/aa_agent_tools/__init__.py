@@ -1,8 +1,8 @@
-"""aa_tools - a friendly toolbox of cool functions for kid-built agents.
+"""aa_agent_tools - a friendly toolbox of cool functions for kid-built agents.
 
 Import it and call functions directly::
 
-    import aa_tools as aa
+    import aa_agent_tools as aa
 
     aa.search_web("cute penguins", api_key="YOUR_BRAVE_KEY")
     aa.fetch_page("https://example.com")
@@ -110,14 +110,14 @@ __all__ = [
 
 
 def list_functions() -> list[str]:
-    """Return the names of every function in aa_tools (handy for autocomplete)."""
+    """Return the names of every function in aa_agent_tools (handy for autocomplete)."""
     return list(__all__)
 
 
 def about() -> str:
     """Print a friendly welcome message."""
     return (
-        "aa_tools v"
+        "aa_agent_tools v"
         + __version__
         + " - a friendly toolbox of cool functions for kid-built agents.\n"
         "Try: aa.search_web(...), aa.fetch_page(...), aa.get_joke(), aa.ask_ai(...)\n"
