@@ -107,43 +107,27 @@ def email_to() -> str:
 
 
 # ---------------------------------------------------------------------------
-# A fake ``urlopen`` context manager that mimics urllib.request.urlopen
+# A fake urllib3 HTTPResponse for offline tests
 # ---------------------------------------------------------------------------
 
 class _FakeResponse:
-    """Minimal stand-in for the object returned by ``urllib.request.urlopen``."""
+    """Minimal stand-in for the ``urllib3.response.HTTPResponse`` object."""
 
-    def __init__(self, payload, *, status_code: int = 200, headers=None):
+    def __init__(self, payload, *, status_code: int = 200, reason: str = "OK", headers=None):
         if isinstance(payload, (dict, list)):
-            self._raw = json.dumps(payload).encode("utf-8")
+            self.data = json.dumps(payload).encode("utf-8")
         elif isinstance(payload, str):
-            self._raw = payload.encode("utf-8")
+            self.data = payload.encode("utf-8")
         else:
-            self._raw = payload or b""
-        self.status_code = status_code
+            self.data = payload or b""
+        self.status = status_code
+        self.reason = reason
         self.headers = headers or {}
 
-    # context-manager protocol
-    def __enter__(self):
-        return self
 
-    def __exit__(self, *exc):
-        return False
-
-    def read(self) -> bytes:
-        return self._raw
-
-    # some helpers that the real response has
-    def getcode(self) -> int:
-        return self.status_code
-
-    def info(self):
-        return self.headers
-
-
-def make_response(payload, *, status_code: int = 200, headers=None) -> _FakeResponse:
+def make_response(payload, *, status_code: int = 200, reason: str = "OK", headers=None) -> _FakeResponse:
     """Return a :class:`_FakeResponse` object."""
-    return _FakeResponse(payload, status_code=status_code, headers=headers)
+    return _FakeResponse(payload, status_code=status_code, reason=reason, headers=headers)
 
 
 @pytest.fixture
@@ -154,6 +138,6 @@ def fake_response():
 
 @pytest.fixture
 def mock_urlopen():
-    """Patch ``urllib.request.urlopen`` and return the mock for configuration."""
-    with patch("urllib.request.urlopen") as m:
+    """Patch ``urllib3.PoolManager.request`` and return the mock for configuration."""
+    with patch("urllib3.PoolManager.request") as m:
         yield m

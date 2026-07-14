@@ -85,7 +85,7 @@ class TestWikipediaSummary:
     def test_spaces_replaced_with_underscores(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({"title": "Black hole", "extract": ""})
         data.wikipedia_summary("Black hole")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "Black_hole" in sent_url
 
 
@@ -124,7 +124,7 @@ class TestDefineWord:
     def test_word_lowercased_in_url(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response([])
         data.define_word("Hello")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "hello" in sent_url
 
     def test_definitions_capped_at_five(self, mock_urlopen, fake_response):
@@ -162,7 +162,7 @@ class TestConvertMoney:
     def test_currency_uppercased(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({"rates": {"EUR": 0.92}})
         data.convert_money(10, "usd", "eur")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "USD" in sent_url
 
 

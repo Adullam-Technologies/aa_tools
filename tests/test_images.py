@@ -30,13 +30,13 @@ class TestGetPhoto:
     def test_auth_header(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({"photos": []})
         images.get_photo("cats", "pexelskey")
-        sent_req = mock_urlopen.call_args[0][0]
-        assert sent_req.headers["Authorization"] == "pexelskey"
+        sent_headers = mock_urlopen.call_args.kwargs["headers"]
+        assert sent_headers["Authorization"] == "pexelskey"
 
     def test_count_param(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({"photos": []})
         images.get_photo("cats", "key", count=5)
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "per_page=5" in sent_url
 
 

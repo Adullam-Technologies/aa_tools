@@ -34,13 +34,13 @@ class TestGetWeather:
     def test_sends_units_param(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response(SAMPLE_OWM_RESPONSE)
         weather.get_weather("London", "key", units="imperial")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "units=imperial" in sent_url
 
     def test_sends_city_in_query(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response(SAMPLE_OWM_RESPONSE)
         weather.get_weather("Tokyo", "key")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "q=Tokyo" in sent_url
 
     def test_missing_weather_key_defaults(self, mock_urlopen, fake_response):

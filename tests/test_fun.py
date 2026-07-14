@@ -140,7 +140,7 @@ class TestGetPokemon:
     def test_name_lowercased(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({"name": "charizard", "types": [], "sprites": {}})
         fun.get_pokemon("Charizard")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "charizard" in sent_url
 
     def test_failure_returns_fallback(self, mock_urlopen):

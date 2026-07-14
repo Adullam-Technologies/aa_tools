@@ -29,19 +29,19 @@ class TestSpaceImage:
     def test_api_key_sent(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response(SAMPLE_APOD)
         space.space_image(api_key="MYKEY")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "api_key=MYKEY" in sent_url
 
     def test_demo_key_by_default(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response(SAMPLE_APOD)
         space.space_image()
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "api_key=DEMO_KEY" in sent_url
 
     def test_date_param(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response(SAMPLE_APOD)
         space.space_image("2024-06-15")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "date=2024-06-15" in sent_url
 
 
@@ -67,6 +67,6 @@ class TestNearEarthObjects:
     def test_date_params(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({})
         space.near_earth_objects(start_date="2024-01-01", end_date="2024-01-07")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "start_date=2024-01-01" in sent_url
         assert "end_date=2024-01-07" in sent_url

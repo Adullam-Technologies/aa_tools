@@ -1,20 +1,24 @@
 """Internal HTTP helpers for aa_agent_tools.
 
-Everything here uses only the Python standard library so it works inside a
-Pyodide (WebAssembly) environment where third-party wheels like ``requests``
-may not be available.
+All HTTP traffic goes through :mod:`urllib3` so we get connection pooling,
+automatic gzip/deflate decompression, and consistent error handling across
+every API helper in the package.
 """
 
 from __future__ import annotations
 
-import gzip
 import json
-import urllib.error
-import urllib.parse
-import urllib.request
+
+import urllib3
+
+from ._util import quote, urlencode
 
 DEFAULT_TIMEOUT = 30
 DEFAULT_USER_AGENT = "aa_agent_tools/0.1 (+https://github.com/Adullam-Technologies/aa_agent_tools)"
+
+# A single shared :class:`~urllib3.PoolManager` is reused for every request so
+# connections can be kept alive and reused across calls.
+_pool = urllib3.PoolManager(timeout=DEFAULT_TIMEOUT)
 
 
 def build_url(base: str, params: dict | None = None) -> str:
@@ -25,7 +29,7 @@ def build_url(base: str, params: dict | None = None) -> str:
     if not clean:
         return base
     sep = "&" if "?" in base else "?"
-    return base + sep + urllib.parse.urlencode(clean, doseq=True)
+    return base + sep + urlencode(clean, doseq=True)
 
 
 def request(
@@ -54,35 +58,32 @@ def request(
     if headers:
         merged.update({k: str(v) for k, v in headers.items()})
 
+    body: bytes | None = data
     if json_body is not None:
-        data = json.dumps(json_body).encode("utf-8")
+        body = json.dumps(json_body).encode("utf-8")
         merged.setdefault("Content-Type", "application/json")
         merged.setdefault("Accept", "application/json")
 
-    req = urllib.request.Request(full_url, data=data, method=method.upper(), headers=merged)
-
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            raw_bytes = resp.read()
-            # Auto-decompress if the server sent gzip content
-            if resp.headers.get("Content-Encoding") == "gzip":
-                raw_bytes = gzip.decompress(raw_bytes)
-            raw = raw_bytes.decode("utf-8", errors="replace")
-    except urllib.error.HTTPError as exc:  # status code >= 400
-        body = ""
-        try:
-            raw_bytes = exc.read()
-            if exc.headers.get("Content-Encoding") == "gzip":
-                raw_bytes = gzip.decompress(raw_bytes)
-            body = raw_bytes.decode("utf-8", errors="replace")
-        except Exception:
-            pass
-        raise AARequestError(exc.code, exc.reason, body) from exc
-    except urllib.error.URLError as exc:
-        raise AAError(f"Could not reach {full_url}: {exc.reason}") from exc
+        resp = _pool.request(
+            method=method.upper(),
+            url=full_url,
+            body=body,
+            headers=merged,
+            timeout=urllib3.Timeout(total=timeout),
+        )
+    except urllib3.exceptions.HTTPError as exc:
+        raise AAError(f"Could not reach {full_url}: {exc}") from exc
+
+    # ``response.data`` is already decompressed by urllib3 when the server used
+    # gzip / deflate / brotli content-encoding.
+    raw = (resp.data or b"").decode("utf-8", errors="replace")
+
+    if resp.status >= 400:
+        raise AARequestError(resp.status, resp.reason or "", raw)
 
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
         # Some endpoints return plain text; hand it back as-is.
-        return { "content": raw }
+        return {"content": raw}

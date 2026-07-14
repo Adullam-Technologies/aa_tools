@@ -26,26 +26,27 @@ class TestSearchWeb:
         assert "grounding" in result
         assert len(result["grounding"]["generic"]) == 1
         assert result["grounding"]["generic"][0]["title"] == "Penguins"
-        sent_req = mock_urlopen.call_args[0][0]
-        assert sent_req.headers["X-subscription-token"] == "test-key"
-        assert "q=penguins" in sent_req.full_url
+        sent_headers = mock_urlopen.call_args.kwargs["headers"]
+        sent_url = mock_urlopen.call_args.kwargs["url"]
+        assert sent_headers["X-Subscription-Token"] == "test-key"
+        assert "q=penguins" in sent_url
 
     def test_uses_llm_context_endpoint(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({})
         web.search_web("test", "mykey")
-        sent_req = mock_urlopen.call_args[0][0]
-        assert "llm/context" in sent_req.full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
+        assert "llm/context" in sent_url
 
     def test_sends_api_key_header(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({})
         web.search_web("test", "mykey")
-        sent_req = mock_urlopen.call_args[0][0]
-        assert sent_req.headers["X-subscription-token"] == "mykey"
+        sent_headers = mock_urlopen.call_args.kwargs["headers"]
+        assert sent_headers["X-Subscription-Token"] == "mykey"
 
     def test_sends_country_and_lang_params(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({})
         web.search_web("test", "key")
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert "country=CA" in sent_url
         assert "search_lang=en" in sent_url
 
@@ -76,14 +77,14 @@ class TestSearchImages:
     def test_count_clamped(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({"images": {"results": []}})
         web.search_images("x", "key", count=100)
-        sent_req = mock_urlopen.call_args[0][0]
-        assert "count=20" in sent_req.full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
+        assert "count=20" in sent_url
 
     def test_count_minimum(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({"images": {"results": []}})
         web.search_images("x", "key", count=0)
-        sent_req = mock_urlopen.call_args[0][0]
-        assert "count=1" in sent_req.full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
+        assert "count=1" in sent_url
 
 
 class TestFetchPage:
@@ -91,7 +92,7 @@ class TestFetchPage:
         mock_urlopen.return_value = fake_response({"content": "# Markdown content"})
         result = web.fetch_page("https://example.com")
         assert result == "# Markdown content"
-        sent_url = mock_urlopen.call_args[0][0].full_url
+        sent_url = mock_urlopen.call_args.kwargs["url"]
         assert sent_url.startswith("https://r.jina.ai/")
 
     def test_truncates_long_content(self, mock_urlopen, fake_response):
