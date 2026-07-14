@@ -67,17 +67,19 @@ def define_word(word: str):
         return {"word": word, "phonetic": "", "definitions": []}
     if isinstance(data, dict):  # error response
         return {"word": word, "phonetic": "", "definitions": []}
-    defs = []
-    phonetic = ""
-    for entry in data:
-        phonetic = phonetic or entry.get("phonetic", "")
-        for meaning in entry.get("meanings", []):
-            for d in meaning.get("definitions", []):
-                defs.append(
-                    f"({meaning.get('partOfSpeech', '')}) {d.get('definition', '')}"
-                    + (f" e.g. {d['example']}" if d.get("example") else "")
-                )
-    return {"word": word, "phonetic": phonetic, "definitions": defs[:5]}
+    elif isinstance(data, list):
+        defs = []
+        phonetic = ""
+        for entry in list(data):
+            phonetic = phonetic or entry.get("phonetic", "")
+            for meaning in entry.get("meanings", []):
+                for d in meaning.get("definitions", []):
+                    defs.append(
+                        f"({meaning.get('partOfSpeech', '')}) {d.get('definition', '')}"
+                        + (f" e.g. {d['example']}" if d.get("example") else "")
+                    )
+        return {"word": word, "phonetic": phonetic, "definitions": defs[:5]}
+    return {"word": word, "phonetic": "", "definitions": []}
 
 
 def number_fact(number, *, kind: str = "math"):

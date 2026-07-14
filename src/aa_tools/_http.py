@@ -7,13 +7,14 @@ may not be available.
 
 from __future__ import annotations
 
+import gzip
 import json
 import urllib.error
 import urllib.parse
 import urllib.request
 
 DEFAULT_TIMEOUT = 30
-DEFAULT_USER_AGENT = "aa_tools/0.1 (+https://github.com/obaodelana/aa_tools)"
+DEFAULT_USER_AGENT = "aa_tools/0.1 (+https://github.com/Adullam-Technologies/aa_tools)"
 
 
 def build_url(base: str, params: dict | None = None) -> str:
@@ -36,8 +37,7 @@ def request(
     data: bytes | None = None,
     json_body: dict | None = None,
     timeout: int = DEFAULT_TIMEOUT,
-    as_json: bool = True,
-):
+) -> dict:
     """Make an HTTP request and return parsed JSON (or text).
 
     Raises
@@ -63,22 +63,26 @@ def request(
 
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
-            raw = resp.read().decode("utf-8", errors="replace")
+            raw_bytes = resp.read()
+            # Auto-decompress if the server sent gzip content
+            if resp.headers.get("Content-Encoding") == "gzip":
+                raw_bytes = gzip.decompress(raw_bytes)
+            raw = raw_bytes.decode("utf-8", errors="replace")
     except urllib.error.HTTPError as exc:  # status code >= 400
         body = ""
         try:
-            body = exc.read().decode("utf-8", errors="replace")
+            raw_bytes = exc.read()
+            if exc.headers.get("Content-Encoding") == "gzip":
+                raw_bytes = gzip.decompress(raw_bytes)
+            body = raw_bytes.decode("utf-8", errors="replace")
         except Exception:
             pass
         raise AARequestError(exc.code, exc.reason, body) from exc
     except urllib.error.URLError as exc:
         raise AAError(f"Could not reach {full_url}: {exc.reason}") from exc
 
-    if not as_json:
-        return raw
-
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
         # Some endpoints return plain text; hand it back as-is.
-        return raw
+        return { "content": raw }

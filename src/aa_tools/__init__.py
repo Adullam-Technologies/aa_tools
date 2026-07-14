@@ -18,7 +18,7 @@ from __future__ import annotations
 __version__ = "0.1.0"
 
 # ---- re-export the friendly public functions -----------------------------
-from .apis import ask_ai, call_api
+from .apis import call_api
 from .data import (
     convert_money,
     country_info,
@@ -42,10 +42,8 @@ from .fun import (
     random_number,
     roll_dice,
 )
-from .github import github_repo, github_search_repos, github_user
-from .images import generate_image, get_photo, random_image
-from .news import get_news, top_headlines
-from .space import mars_photo, near_earth_objects, space_image
+from .images import get_photo, random_image
+from .space import near_earth_objects, space_image
 from .text_tools import (
     base64_decode,
     base64_encode,
@@ -56,37 +54,24 @@ from .text_tools import (
     make_qr,
     reverse_text,
 )
-from .translate import translate_text
 from .weather import get_forecast, get_weather
-from .web import fetch_page, search_images, search_web
+from .web import fetch_page, search_web
 
 __all__ = [
     # web
     "search_web",
-    "search_images",
     "fetch_page",
     # email
     "send_email",
     "send_email_gmail",
     # generic api + ai
     "call_api",
-    "ask_ai",
     # weather
     "get_weather",
     "get_forecast",
-    # translate
-    "translate_text",
-    # news
-    "get_news",
-    "top_headlines",
     # space
     "space_image",
     "near_earth_objects",
-    "mars_photo",
-    # github
-    "github_repo",
-    "github_user",
-    "github_search_repos",
     # fun
     "get_joke",
     "get_advice",
@@ -107,7 +92,6 @@ __all__ = [
     "convert_money",
     "shorten_url",
     # images
-    "generate_image",
     "get_photo",
     "random_image",
     # text tools

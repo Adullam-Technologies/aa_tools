@@ -53,16 +53,3 @@ def near_earth_objects(api_key: str = "DEMO_KEY", *, start_date: str | None = No
         "count": data.get("element_count"),
         "asteroids": list((data.get("near_earth_objects") or {}).values()),
     }
-
-
-def mars_photo(*, sol: int = 1000, api_key: str = "DEMO_KEY", camera: str | None = None):
-    """Fetch a real photo taken by a rover on Mars."""
-    params = {"sol": sol, "api_key": api_key, "page": 0}
-    if camera:
-        params["camera"] = camera
-    data = request(f"{NASA}/mars-photos/api/v1/rovers/curiosity/photos", params=params)
-    photos = data.get("photos", [])
-    if not photos:
-        return None
-    p = photos[0]
-    return {"url": p.get("img_src"), "earth_date": p.get("earth_date"), "camera": (p.get("camera") or {}).get("full_name")}
