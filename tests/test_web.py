@@ -95,11 +95,6 @@ class TestFetchPage:
         sent_url = mock_urlopen.call_args.kwargs["url"]
         assert sent_url.startswith("https://r.jina.ai/")
 
-    def test_truncates_long_content(self, mock_urlopen, fake_response):
-        mock_urlopen.return_value = fake_response({"content": "a" * 20000})
-        result = web.fetch_page("https://example.com", max_chars=100)
-        assert len(result) <= 100
-
     def test_falls_back_to_html_stripping(self, mock_urlopen, fake_response):
         # First call (Jina) fails, second (raw HTML) succeeds
         mock_urlopen.side_effect = [Exception("jina down"), fake_response({"content": "<html><body>Hello</body></html>"})]

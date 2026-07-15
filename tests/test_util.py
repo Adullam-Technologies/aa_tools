@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from aa_agent_tools._util import pretty, require_key, truncate
+from aa_agent_tools._util import pretty, require_key
 from aa_agent_tools.errors import AAMissingKeyError
 
 
@@ -29,30 +29,6 @@ class TestRequireKey:
     def test_error_message_contains_name(self):
         with pytest.raises(AAMissingKeyError, match="api_key"):
             require_key("", "api_key")
-
-
-class TestTruncate:
-    def test_short_text_unchanged(self):
-        assert truncate("hello", 100) == "hello"
-
-    def test_exact_limit(self):
-        assert truncate("hello", 5) == "hello"
-
-    def test_long_text_truncated_with_ellipsis(self):
-        result = truncate("a" * 200, 50)
-        assert len(result) == 50
-        assert result.endswith("…")
-
-    def test_none_returns_empty(self):
-        assert truncate(None, 100) == ""
-
-    def test_non_string_converted(self):
-        assert truncate(12345, 100) == "12345"
-
-    def test_default_limit(self):
-        result = truncate("a" * 700, 600)
-        assert len(result) == 600
-        assert result.endswith("…")
 
 
 class TestPretty:

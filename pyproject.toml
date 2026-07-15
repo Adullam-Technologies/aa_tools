@@ -1,13 +1,15 @@
 [project]
 name = "aa-agent-tools"
-version = "0.1.0"
+version = "0.1.2"
 description = "aa_agent_tools - a friendly, Pyodide-ready toolbox of cool functions for kid-built agents (web search, fetch pages, email, AI, weather, and tons of fun stuff)."
 readme = "README.md"
 authors = [
     { name = "obaodelana", email = "obaloluwa.dev@gmail.com" }
 ]
 requires-python = ">=3.10"
-dependencies = ["urllib3>=2"]
+dependencies = [
+    "urllib3>=2",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",

@@ -14,7 +14,6 @@ import urllib3
 from ._util import quote, urlencode
 
 DEFAULT_TIMEOUT = 30
-DEFAULT_USER_AGENT = "aa_agent_tools/0.1 (+https://github.com/Adullam-Technologies/aa_agent_tools)"
 
 # A single shared :class:`~urllib3.PoolManager` is reused for every request so
 # connections can be kept alive and reused across calls.
@@ -54,7 +53,7 @@ def request(
     from .errors import AAError, AARequestError
 
     full_url = build_url(url, params)
-    merged = {"User-Agent": DEFAULT_USER_AGENT}
+    merged = {}
     if headers:
         merged.update({k: str(v) for k, v in headers.items()})
 

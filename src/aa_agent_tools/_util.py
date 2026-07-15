@@ -12,15 +12,6 @@ def require_key(value, name: str):
     return value
 
 
-def truncate(text: str, limit: int = 600) -> str:
-    """Trim ``text`` to ``limit`` characters and add an ellipsis if needed."""
-    if text is None:
-        return ""
-    text = str(text)
-    if len(text) <= limit:
-        return text
-    return text[: limit - 1].rstrip() + "…"
-
 
 def pretty(obj) -> str:
     """Return a human-friendly, readable string for any result."""

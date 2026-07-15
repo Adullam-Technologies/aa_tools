@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from ._http import request
-from ._util import truncate
 
 
 def _is_prime(n: int) -> bool:

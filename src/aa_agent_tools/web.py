@@ -11,7 +11,7 @@ import html
 import re
 
 from ._http import request
-from ._util import require_key, truncate
+from ._util import require_key
 
 JINA_READER = "https://r.jina.ai/"
 
@@ -69,10 +69,12 @@ def fetch_page(url: str, *, use_reader: bool = True, max_chars: int = 8000):
     if use_reader:
         target = JINA_READER + url
         try:
-            return truncate(request(target).get("content") or "", max_chars)
+            res = request(target).get("content") or ""
+            if len(res.strip()) > 0:
+                return res
         except Exception:
             pass
-    return truncate(_strip_html(_get_html(url)), max_chars)
+    return _strip_html(_get_html(url))
 
 
 def _get_html(url: str) -> str:

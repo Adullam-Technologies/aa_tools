@@ -41,18 +41,11 @@ class TestRequest:
         result = request("https://example.com")
         assert result == {"content": "plain text"}
 
-    def test_user_agent_added(self, mock_urlopen, fake_response):
-        mock_urlopen.return_value = fake_response({})
-        request("https://example.com")
-        sent_headers = mock_urlopen.call_args.kwargs["headers"]
-        assert sent_headers["User-Agent"] == "aa_agent_tools/0.1 (+https://github.com/Adullam-Technologies/aa_agent_tools)"
-
     def test_custom_headers_merged(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({})
         request("https://example.com", headers={"X-Token": "abc"})
         sent_headers = mock_urlopen.call_args.kwargs["headers"]
         assert sent_headers["X-Token"] == "abc"
-        assert sent_headers["User-Agent"].startswith("aa_agent_tools/")
 
     def test_json_body_sets_content_type(self, mock_urlopen, fake_response):
         mock_urlopen.return_value = fake_response({})
