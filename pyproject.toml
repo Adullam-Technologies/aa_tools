@@ -17,6 +17,7 @@ classifiers = [
     "Topic :: Education",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+
 [project.urls]
 Homepage = "https://github.com/obaodelana/aa_agent_tools"
 Documentation = "https://github.com/obaodelana/aa_agent_tools"
@@ -29,7 +30,13 @@ build-backend = "uv_build"
 package = true
 
 [dependency-groups]
-dev = ["pytest>=8.0"]
+dev = [
+    "pytest>=8.0",
+    "taskipy>=1.0",
+]
+
+[tool.taskipy.tasks]
+clean-dist = "find dist -mindepth 1 -not -name .gitignore -delete && echo '✅ cleaned dist/'"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
