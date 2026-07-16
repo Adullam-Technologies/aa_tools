@@ -1,6 +1,6 @@
 [project]
 name = "aa-agent-tools"
-version = "0.1.32"
+version = "0.1.33"
 description = "aa_agent_tools - a friendly, Pyodide-ready toolbox of cool functions for kid-built agents (web search, fetch pages, email, AI, weather, and tons of fun stuff)."
 readme = "README.md"
 authors = [

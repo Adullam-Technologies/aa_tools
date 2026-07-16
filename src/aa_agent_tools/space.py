@@ -41,13 +41,11 @@ def space_image(date: str | None = None, *, api_key: str = "DEMO_KEY"):
     }
 
 
-def near_earth_objects(api_key: str = "DEMO_KEY", *, start_date: str | None = None, end_date: str | None = None):
+def near_earth_objects(api_key: str = "DEMO_KEY", *, start_date: str | None = None):
     """List asteroids flying near Earth in a date range (NASA NeoWs)."""
     params = {"api_key": api_key}
     if start_date:
         params["start_date"] = start_date
-    if end_date:
-        params["end_date"] = end_date
     data = request(f"{NASA}/neo/rest/v1/feed", params=params)
     return {
         "count": data.get("element_count"),

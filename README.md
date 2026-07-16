@@ -155,11 +155,11 @@ pic = aa.space_image()
 print(pic["title"], pic["url"])
 ```
 
-#### `near_earth_objects(api_key="DEMO_KEY", *, start_date=None, end_date=None)` 🆓
+#### `near_earth_objects(api_key="DEMO_KEY", *, start_date=None)` 🆓
 List asteroids flying near Earth in a date range (NASA NeoWs).
 
 ```python
-aa.near_earth_objects(api_key="DEMO_KEY", start_date="2024-01-01", end_date="2024-01-07")
+aa.near_earth_objects(api_key="DEMO_KEY", start_date="2024-01-01")
 ```
 
 #### `mars_photo(*, sol=1000, api_key="DEMO_KEY")` 🆓
