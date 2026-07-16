@@ -55,7 +55,7 @@ from .text_tools import (
     reverse_text,
 )
 from .weather import get_forecast, get_weather
-from .web import fetch_page, search_web
+from .web import fetch_page, search_web, search_images
 
 __all__ = [
     # web
