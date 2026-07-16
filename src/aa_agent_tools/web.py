@@ -40,19 +40,11 @@ def search_images(query: str, api_key: str, count: int = 5):
     """Search for images on the web with Brave (needs an API key)."""
     require_key(api_key, "api_key")
     data = request(
-        "https://api.search.brave.com/res/v1/web/search",
-        params={"q": query, "count": min(max(count, 1), 20), "result_filter": "images"},
+        "https://api.search.brave.com/res/v1/images/search",
+        params={"q": query, "count": min(max(count, 1), 20)},
         headers={"Accept": "application/json", "Accept-Encoding": "gzip", "X-Subscription-Token": api_key},
     )
-    imgs = (data.get("images") or {}).get("results") or []
-    return [
-        {
-            "title": item.get("title", ""),
-            "url": item.get("url", ""),
-            "thumbnail": (item.get("thumbnail") or {}).get("src", ""),
-        }
-        for item in imgs
-    ]
+    return data.get("results") or []
 
 
 def fetch_page(url: str, *, use_reader: bool = True, max_chars: int = 8000):
