@@ -60,6 +60,7 @@ from .web import fetch_page, search_web
 __all__ = [
     # web
     "search_web",
+    "search_images",
     "fetch_page",
     # email
     "send_email",
